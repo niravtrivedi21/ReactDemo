@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, ListGroup, ListGroupItem } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 
 class DishDetail extends Component {
@@ -12,7 +12,7 @@ class DishDetail extends Component {
     renderDish(dish) {
         if (dish != null) {
             return (
-
+                <div className="row">
                     <div className="col-12 col-md-5 m-1">
                         <Card >
                             <CardImg width="100%" object src={dish.image} alt={dish.name} />
@@ -21,8 +21,10 @@ class DishDetail extends Component {
                                 <CardText>{dish.description}</CardText>
                             </CardBody>
                         </Card>
-                        {this.renderComments(dish.comments)}
                     </div>
+
+                    {this.renderComments(dish.comments)}
+                </div>
             );
         }
         else {
@@ -37,9 +39,10 @@ class DishDetail extends Component {
         if (comments != null) {
 
             const commentShow = comments.map((comment) => {
+                console.log(comment);
                 return (
-
-                    <ul key={comment.id} class="list-unstyled">
+                    
+                    <ul key={comment.id} className="list-unstyled">
                         <li>{comment.comment}</li>
                         <li>-- {comment.author},{comment.date}</li>
                     </ul>
@@ -49,11 +52,11 @@ class DishDetail extends Component {
 
 
             return (
-
-                <div >
+                <div className="col-12 col-md-5 m-1">
                     <h4> Comments </h4>
                     {commentShow}
                 </div>
+
             );
 
         }
@@ -68,10 +71,9 @@ class DishDetail extends Component {
     render() {
 
         return (
-            <div className="row">
+            <div>
 
                 {this.renderDish(this.props.selectedDish)}
-
             </div>
         );
     }
