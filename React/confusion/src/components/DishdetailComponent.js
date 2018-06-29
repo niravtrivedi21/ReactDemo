@@ -4,12 +4,8 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
 class DishDetail extends Component {
 
-    constructor(props) {
-        super(props);
-
-    }
-
     renderDish(dish) {
+        console.log(dish);
         if (dish != null) {
             return (
                 <div className="row">
@@ -41,10 +37,10 @@ class DishDetail extends Component {
             const commentShow = comments.map((comment) => {
                 console.log(comment);
                 return (
-                    
+
                     <ul key={comment.id} className="list-unstyled">
                         <li>{comment.comment}</li>
-                        <li>-- {comment.author},{comment.date}</li>
+                        <li>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</li>
                     </ul>
 
                 );
@@ -71,8 +67,7 @@ class DishDetail extends Component {
     render() {
 
         return (
-            <div>
-
+            <div >
                 {this.renderDish(this.props.selectedDish)}
             </div>
         );
