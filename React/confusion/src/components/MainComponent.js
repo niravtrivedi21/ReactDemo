@@ -23,11 +23,11 @@ const mapStateTOProps = state => {
 
 class Main extends Component {
 
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
 
-    }
+    // }
 
 
     render() {
