@@ -30,23 +30,24 @@ class CommentForm extends Component {
         });
     }
 
-    
+
     handleSubmit(values) {
         let temp = {
             author: values.author,
-            rating:values.rating,
-            comment:values.comment
+            rating: values.rating,
+            comment: values.comment
         }
         console.log("Current State is:" + JSON.stringify(temp));
         alert("Current State is:" + JSON.stringify(temp));
-        this.setState({modal:!this.state.modal});
+        this.setState({ modal: !this.state.modal });
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     render() {
         return (
             <div>
-                <Button outline color="secondary"  onClick={this.toggle}>
-                <span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
+                <Button outline color="secondary" onClick={this.toggle}>
+                    <span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>Submit Comment</ModalHeader>
                     <ModalBody>
@@ -112,7 +113,7 @@ class CommentForm extends Component {
                             </Row>
                         </LocalForm>
                     </ModalBody>
-                
+
                 </Modal>
             </div>
         );
@@ -143,7 +144,7 @@ function RenderDish({ dish }) {
 };
 
 
-function RenderComments({ comments }) {
+function RenderComments({ comments, addComment, dishId }) {
 
     if (comments != null) {
 
@@ -161,7 +162,7 @@ function RenderComments({ comments }) {
 
                         );
                     })}
-                    <CommentForm />
+                    <CommentForm dishId={dishId} addComment={addComment} />
                 </ul>
             </div>
         );
@@ -186,7 +187,7 @@ const DishDetail = (props) => {
             <div className="container">
                 <div className="row">
                     <Breadcrumb>
-                    <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
 
                         <BreadcrumbItem>
                             <Link to='/menu'>Menu</Link>
@@ -201,7 +202,9 @@ const DishDetail = (props) => {
                 </div>
                 <div className="row">
                     <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id} />
                 </div>
             </div>
         );
